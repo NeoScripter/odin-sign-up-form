@@ -118,6 +118,7 @@ body {
 
 .fieldset {
     display: grid;
+    position: relative;
 }
 
 label {
@@ -128,6 +129,15 @@ label {
 
 input {
     border: 1px solid var(--input-brd-color);
+}
+
+input.error::placeholder {
+    color: red !important;  
+    opacity: 1 !important;
+}
+
+input.error {
+    border: 1px solid red !important; 
 }
 
 input:focus {
@@ -141,15 +151,13 @@ input[type="tel"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
-
-input[type="tel"] {
-    -moz-appearance: textfield; 
-    appearance: textfield;
+input:invalid {
+    border: 1px solid red; 
 }
 
-input:invalid {
-    border: 2px solid red; 
-    color: red;
+.error-prg {
+    position: absolute;
+    bottom: 0;
 }
 
 .form-bottom > * {
