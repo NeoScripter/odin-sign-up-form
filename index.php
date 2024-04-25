@@ -1,22 +1,15 @@
 <?php
-session_start();
-
-// Retrieve error messages and form data from session if available
-$errors = isset($_SESSION['errors']) ? $_SESSION['errors'] : [];
-$formData = isset($_SESSION['formData']) ? $_SESSION['formData'] : [];
-
-// Clear session data after use to prevent errors from persisting on page refresh
-unset($_SESSION['errors']);
-unset($_SESSION['formData']);
+    require_once 'config.php';
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
     <title>Sign-Up Form</title>
 </head>
 <body>
@@ -32,7 +25,7 @@ unset($_SESSION['formData']);
                 <p class="credit">Photo by <a href="https://unsplash.com/@haliewestphoto" class="credit-link">Halie West</a> on <a href="https://unsplash.com/" class="credit-link">Unsplash</a></p>
             </div>
         </div>
-        <form class="form" action="includes/form-handler.php" method="POST">
+        <form class="form" action="includes/formhandler.inc.php" method="POST">
             <div class="form-top">
                 <p class="form-top-prg">This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams.</p>
                 <p>Sign up <em>now</em> to get started.</p>
@@ -42,33 +35,36 @@ unset($_SESSION['formData']);
             <div class="form-center">
                 <h3 class="form-title">Let's do this!</h3>
                 <div class="input-wrapper">
-                <?php
-                $fields = ['first-name', 'last-name', 'email', 'phone', 'password', 'confirm_password'];
-                foreach ($fields as $field) {
-                    $field_name = str_replace(array('_', '-'), ' ', ucfirst($field));
-                    $hasError = isset($errors[$field]);
-                    $errorClass = $hasError ? 'class="error"' : '';
-                    $value = isset($formData[$field]) ? htmlspecialchars($formData[$field]) : '';
-                    $inputType = ($field == 'password' || $field == 'confirm_password') ? 'password' : 'text';
-                    $inputType = ($field == 'email') ? 'email' : $inputType;
-                    $inputType = ($field == 'phone') ? 'tel' : $inputType;
-
-                    echo "<div class='fieldset'>
-                            <label for='{$field}'>{$field_name}</label>";
-                    
-                    // Only set the placeholder if there is an error
-                    $placeholder = $hasError ? $errors[$field] : '';
-
-                    // Generate the input element with dynamic placeholder and existing value
-                    echo "<input type='{$inputType}' id='{$field}' name='{$field}' value='{$value}' {$errorClass} placeholder='{$placeholder}'></div>";
-                }
-                ?>
-
+                    <div class="fieldset hidden">
+                        <label for="first-name">First name</label>
+                        <input type="text" id="first-name" name="first-name">
+                    </div>
+                    <div class="fieldset hidden">
+                        <label for="last-name">Last name</label>
+                        <input type="text" id="last-name" name="last-name">
+                    </div>
+                    <div class="fieldset">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="fieldset hidden">
+                        <label for="phone">Phone number</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="fieldset">
+                        <label for="password">Password</label>
+                        <input type="password" id="password" name="password">
+                    </div>
+                    <div class="fieldset hidden">
+                        <label for="confirm_password">Confirm password</label>
+                        <input type="password" id="confirm_password" name="confirm_password">
+                    </div>
                 </div>
             </div>
             <div class="form-bottom">
-                <button type="submit">Create Account</button>
-                <p class="log-prg">Already have an account? <a href="#" class="log-link">Log in</a></p>
+                <button id="submit_btn" type="submit">Create Account</button>
+                <p class="log-prg">Already have an account? <button type="button" class="log-link" id="log_in">Log in</button></p>
+                <p class="log-prg">Don't have an account? <button type="button" class="log-link" id="create">Sign up</button></p>
             </div>
         </form>
     </div>
