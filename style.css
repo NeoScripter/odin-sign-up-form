@@ -183,6 +183,14 @@ button[type="submit"] {
     cursor: pointer;
 }
 
+.form-error {
+    color: red;
+}
+
+.form-success {
+    color: green;
+}
+
 @media screen and (max-width: 600px) {
     .outer-wrapper {
         grid-template-columns: 1fr;

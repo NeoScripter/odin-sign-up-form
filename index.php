@@ -1,5 +1,6 @@
 <?php
-    require_once 'config.php';
+    require_once 'includes/config_session.inc.php';
+    require_once 'includes/signup_view.inc.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +26,7 @@
                 <p class="credit">Photo by <a href="https://unsplash.com/@haliewestphoto" class="credit-link">Halie West</a> on <a href="https://unsplash.com/" class="credit-link">Unsplash</a></p>
             </div>
         </div>
-        <form class="form" action="includes/formhandler.inc.php" method="POST">
+        <form class="form" action="includes/signup.inc.php" method="POST">
             <div class="form-top">
                 <p class="form-top-prg">This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams.</p>
                 <p>Sign up <em>now</em> to get started.</p>
@@ -35,7 +36,7 @@
             <div class="form-center">
                 <h3 class="form-title">Let's do this!</h3>
                 <div class="input-wrapper">
-                    <div class="fieldset hidden">
+                    <!-- <div class="fieldset hidden">
                         <label for="first-name">First name</label>
                         <input type="text" id="first-name" name="first-name">
                     </div>
@@ -58,8 +59,14 @@
                     <div class="fieldset hidden">
                         <label for="confirm_password">Confirm password</label>
                         <input type="password" id="confirm_password" name="confirm_password">
-                    </div>
+                    </div> -->
+                    <?php
+                    signup_inputs();
+                    ?>
                 </div>
+                <?php
+                check_signup_errors();
+                ?>
             </div>
             <div class="form-bottom">
                 <button id="submit_btn" type="submit">Create Account</button>
