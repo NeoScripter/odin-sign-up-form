@@ -25,6 +25,17 @@ function get_email(object $pdo, string $email)
     return $result;
 }
 
+function get_phone(object $pdo, string $phone) 
+{
+    $query = "SELECT phone FROM users WHERE phone = :phone;";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(":phone", $phone);
+    $stmt->execute();
+
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    return $result;
+}
+
 function set_user(object $pdo, string $first_name, string $last_name, string $email, string $phone, string $pwd) {
     $query = "INSERT INTO users (user_first_name, user_last_name, email, phone, pwd) VALUES (:first_name, :last_name, :email, :phone, :pwd);";
     $stmt = $pdo->prepare($query);

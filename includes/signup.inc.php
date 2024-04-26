@@ -32,6 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $errors["email_taken"] = "Email already registered!";
         }
 
+        if (is_phone_invalid($phone)) {
+            $errors["invalid_number"] = "Invalid number used!";
+        }
+
+        if (is_phone_registered($pdo, $phone)) {
+            $errors["phone_taken"] = "Phone already registered!";
+        }
+
         if ($pwd !== $confirm_pwd) {
             $errors["wrong_password"] = "Passwords don't match!";
         }
@@ -39,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         require_once "config_session.inc.php";
 
         if ($errors) {
-            $_SESSION["error_signup"] = $errors;
+            $_SESSION["errors_signup"] = $errors;
 
             $signup_data = [
                 "first-name" => $first_name,

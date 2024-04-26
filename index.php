@@ -65,7 +65,7 @@
                     ?>
                 </div>
                 <?php
-                check_signup_errors();
+                unset($_SESSION);
                 ?>
             </div>
             <div class="form-bottom">

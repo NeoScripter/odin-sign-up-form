@@ -2,80 +2,87 @@
 
 declare(strict_types=1);
 
+function insert_input($input_id, $value, $label_value, $input_type, $input_class, $input_placeholder)
+{
+    $hidden = ($input_id === "email" || $input_id === "password") ? "" : " hidden";
+    echo 
+        '<div class="fieldset' . $hidden . '">
+            <label for="' . $input_id . '">' . $label_value . '</label>
+            <input placeholder="' . $input_placeholder . '" type="' . $input_type .'" class="' . $input_class . '" id="' . $input_id . '" name="' . $input_id . '" value="' . $value . '">
+        </div>';
+}
+
+
 function signup_inputs() 
 {
-    if (isset($_SESSION["signup_data"]["first-name"]) && !isset($_SESSION["errors_signup"]["username_taken"])) {
-        echo 
-        '<div class="fieldset hidden">
-            <label for="first-name">First name</label>
-            <input type="text" id="first-name" name="first-name" value="' . $_SESSION["signup_data"]["first-name"] . '">
-        </div>';
+    if (isset($_SESSION["errors_signup"]["empty_input"]) && empty($_SESSION["signup_data"]["first-name"])) {
+        insert_input('first-name', '', 'First name', 'text', 'error', 'Fill in this field!');
+    } elseif (isset($_SESSION["signup_data"]["first-name"]) && !isset($_SESSION["errors_signup"]["username_taken"])) {
+        insert_input('first-name', $_SESSION["signup_data"]["first-name"], 'First name', 'text', '', '');
+    } elseif (isset($_SESSION["errors_signup"]["username_taken"])) {
+        insert_input('first-name', '', 'First name', 'text', 'error', $_SESSION["errors_signup"]["username_taken"]);
     } else {
-        echo '
-        <div class="fieldset hidden">
-            <label for="first-name">First name</label>
-            <input type="text" id="first-name" name="first-name">
-        </div>';
+        insert_input('first-name', '', 'First name', 'text', '', '');
     }
 
-    if (isset($_SESSION["signup_data"]["last-name"]) && !isset($_SESSION["errors_signup"]["username_taken"])) {
-        echo 
-        '<div class="fieldset hidden">
-            <label for="last-name">Last name</label>
-            <input type="text" id="last-name" name="last-name" value="' . $_SESSION["signup_data"]["last-name"] . '">
-        </div>';
+    if (isset($_SESSION["errors_signup"]["empty_input"]) && empty($_SESSION["signup_data"]["last-name"])) {
+        insert_input('last-name', '', 'Last name', 'text', 'error', 'Fill in this field!');
+    } elseif (isset($_SESSION["signup_data"]["last-name"]) && !isset($_SESSION["errors_signup"]["username_taken"])) {
+        insert_input('last-name', $_SESSION["signup_data"]["last-name"], 'Last name', 'text', '', '');
+    } elseif (isset($_SESSION["errors_signup"]["username_taken"])) {
+        insert_input('last-name', '', 'Last name', 'text', 'error', $_SESSION["errors_signup"]["username_taken"]);
     } else {
-        echo '
-        <div class="fieldset hidden">
-            <label for="last-name">Last name</label>
-            <input type="text" id="last-name" name="last-name">
-        </div>';
+        insert_input('last-name', '', 'Last name', 'text', '', '');
     }
 
-    if (isset($_SESSION["signup_data"]["email"]) && !isset($_SESSION["errors_signup"]["email_taken"]) && !isset($_SESSION["errors_signup"]["invalid_email"])) {
-        echo 
-        '<div class="fieldset hidden">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" value="' . $_SESSION["signup_data"]["email"] . '">
-        </div>';
+    if (isset($_SESSION["errors_signup"]["empty_input"]) && empty($_SESSION["signup_data"]["email"])) {
+        insert_input('email', '', 'Email', 'email', 'error', 'Fill in this field!');
+    } elseif (isset($_SESSION["signup_data"]["email"]) && !isset($_SESSION["errors_signup"]["email_taken"]) && !isset($_SESSION["errors_signup"]["invalid_email"])) {
+        insert_input('email', $_SESSION["signup_data"]["email"], 'Email', 'email', '', '');
+    } elseif (isset($_SESSION["errors_signup"]["email_taken"])) {
+        insert_input('email', '', 'Email', 'email', 'error', $_SESSION["errors_signup"]["email_taken"]);
+    } elseif (isset($_SESSION["errors_signup"]["invalid_email"])) {
+        insert_input('email', '', 'Email', 'email', 'error', $_SESSION["errors_signup"]["invalid_email"]);
     } else {
-        echo '
-        <div class="fieldset">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email">
-        </div>';
+        insert_input('email', '', 'Email', 'email', '' ,'');
     }
     
-    if (isset($_SESSION["signup_data"]["phone"])) {
-        echo '
-        <div class="fieldset hidden">
-            <label for="phone">Phone number</label>
-            <input type="tel" id="phone" name="phone" value="' . $_SESSION["signup_data"]["phone"] . '">
-        </div>';
+    if (isset($_SESSION["errors_signup"]["empty_input"]) && empty($_SESSION["signup_data"]["phone"])) {
+        insert_input('phone', '', 'Phone number', 'phone', 'error', 'Fill in this field!');
+    } elseif (isset($_SESSION["signup_data"]["phone"]) && !isset($_SESSION["errors_signup"]["phone_taken"]) && !isset($_SESSION["errors_signup"]["invalid_number"])) {
+        insert_input('phone', $_SESSION["signup_data"]["phone"], 'Phone number', 'tel', '', '');
+    } elseif (isset($_SESSION["errors_signup"]["phone_taken"])) {
+        insert_input('phone', '', 'Phone number', 'tel', 'error', $_SESSION["errors_signup"]["phone_taken"]);
+    } elseif (isset($_SESSION["errors_signup"]["invalid_number"])) {
+        insert_input('phone', '', 'Phone number', 'tel', 'error', $_SESSION["errors_signup"]["invalid_number"]);
     } else {
-        echo '
-        <div class="fieldset hidden">
-            <label for="phone">Phone number</label>
-            <input type="tel" id="phone" name="phone">
-        </div>';
+        insert_input('phone', '', 'Phone number', 'tel', '' ,'');
     }
 
-    echo '
-    <div class="fieldset">
-        <label for="password">Password</label>
-        <input type="password" id="password" name="password">
-    </div>
-    <div class="fieldset hidden">
-        <label for="confirm_password">Confirm password</label>
-        <input type="password" id="confirm_password" name="confirm_password">
-    </div>';
+
+    if (isset($_SESSION["errors_signup"]["empty_input"]) && empty($_SESSION["signup_data"]["password"]) && !isset($_SESSION["errors_signup"]["wrong_password"])) {
+        insert_input('password', '', 'Password', 'password', 'error', 'Fill in this field!');
+    } elseif (isset($_SESSION["errors_signup"]["wrong_password"])) {
+        insert_input('password', '', 'Password', 'password', 'error', $_SESSION["errors_signup"]["wrong_password"]); 
+    } else {
+        insert_input('password', '', 'Password', 'password', '', '');
+    }
+
+    if (isset($_SESSION["errors_signup"]["empty_input"]) && empty($_SESSION["signup_data"]["confirm_password"]) && !isset($_SESSION["errors_signup"]["wrong_password"])) {
+        insert_input('confirm_password', '', 'Confirm password', 'password', 'error', 'Fill in this field!');
+    } elseif (isset($_SESSION["errors_signup"]["wrong_password"])) {
+        insert_input('confirm_password', '', 'Confirm password', 'password', 'error', $_SESSION["errors_signup"]["wrong_password"]);
+    } else {
+        insert_input('confirm_password', '', 'Confirm password', 'password', '', '');
+    }
+    unset($_SESSION);
 }
 
 
 function check_signup_errors() 
 {
-    if (isset($_SESSION['error_signup'])) {
-        $errors = $_SESSION['error_signup'];
+    if (isset($_SESSION['errors_signup'])) {
+        $errors = $_SESSION['errors_signup'];
 
         echo "<br>";
 
