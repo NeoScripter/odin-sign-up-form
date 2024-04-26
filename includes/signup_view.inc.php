@@ -75,6 +75,7 @@ function signup_inputs()
     } else {
         insert_input('confirm_password', '', 'Confirm password', 'password', '', '');
     }
+    $_SESSION["errors_signup"] = null;
     unset($_SESSION);
 }
 

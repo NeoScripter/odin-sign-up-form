@@ -36,30 +36,6 @@
             <div class="form-center">
                 <h3 class="form-title">Let's do this!</h3>
                 <div class="input-wrapper">
-                    <!-- <div class="fieldset hidden">
-                        <label for="first-name">First name</label>
-                        <input type="text" id="first-name" name="first-name">
-                    </div>
-                    <div class="fieldset hidden">
-                        <label for="last-name">Last name</label>
-                        <input type="text" id="last-name" name="last-name">
-                    </div>
-                    <div class="fieldset">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email">
-                    </div>
-                    <div class="fieldset hidden">
-                        <label for="phone">Phone number</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    <div class="fieldset">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password">
-                    </div>
-                    <div class="fieldset hidden">
-                        <label for="confirm_password">Confirm password</label>
-                        <input type="password" id="confirm_password" name="confirm_password">
-                    </div> -->
                     <?php
                     signup_inputs();
                     ?>
