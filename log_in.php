@@ -1,6 +1,5 @@
 <?php
     require_once 'includes/config_session.inc.php';
-    require_once 'includes/signup_view.inc.php';
     require_once 'includes/login_view.inc.php';
 ?>
 <!DOCTYPE html>
@@ -27,7 +26,7 @@
                 <p class="credit">Photo by <a href="https://unsplash.com/@haliewestphoto" class="credit-link">Halie West</a> on <a href="https://unsplash.com/" class="credit-link">Unsplash</a></p>
             </div>
         </div>
-        <form class="form" action="includes/signup.inc.php" method="POST">
+        <form class="form" action="includes/login.inc.php" method="POST">
             <div class="form-top">
                 <p class="form-top-prg">This is not a real online service! You know you need something like this in your life to help you realize your deepest dreams.</p>
                 <p>Sign up <em>now</em> to get started.</p>
@@ -38,7 +37,7 @@
                 <h3 class="form-title">Let's do this!</h3>
                 <div class="input-wrapper">
                     <?php
-                    signup_inputs();
+                    signup_inputs_log_in();
                     ?>
                 </div>
                 <?php
@@ -46,7 +45,7 @@
                 ?>
             </div>
             <div class="form-bottom">
-                <button id="submit_btn" type="submit">Create Account</button>
+                <button id="submit_btn" type="submit">Log in</button>
                 <p class="log-prg">Already have an account? <button type="button" class="log-link" id="log_in">Log in</button></p>
                 <p class="log-prg">Don't have an account? <button type="button" class="log-link" id="create">Sign up</button></p>
             </div>
